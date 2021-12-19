@@ -7,19 +7,17 @@ export class RxTracker extends AbstractTracker {
     key: PropertyKey,
     { get, set, value: originalValue }: PropertyDescriptor
   ): void {
+    const tracker = this;
+
     if (get || set) {
       invariant(set, 'can only track setters');
 
       // TODO: optimize
       Reflect.defineProperty(this.target, key, {
-        get: () => {
-          if (typeof get === 'function') {
-            return Reflect.apply(get, this.target, []);
-          }
-        },
-        set: newValue => {
-          Reflect.apply(set, this.target, [newValue]);
-          this.notify();
+        get,
+        set(newValue) {
+          Reflect.apply(set, this, [newValue]);
+          tracker.notify();
         },
       });
 
@@ -28,10 +26,12 @@ export class RxTracker extends AbstractTracker {
       let value = originalValue;
 
       Reflect.defineProperty(this.target, key, {
-        get: () => value,
-        set: newValue => {
+        get() {
+          return value;
+        },
+        set(newValue) {
           value = newValue;
-          this.notify();
+          tracker.notify();
         },
       });
     }
