@@ -12,7 +12,7 @@ export class AbstractStore implements Store, Destroyable {
   state$: Observable<this>;
 
   constructor(trackerConstructor: TrackerConstructor) {
-    this.tracker = new trackerConstructor(this);
+    this.tracker = Reflect.construct(trackerConstructor, [this]);
     this.change$ = this.tracker.change$;
     this.state$ = makeStateObservable(this, this.tracker);
   }
