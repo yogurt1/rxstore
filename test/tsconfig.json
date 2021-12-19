@@ -1,0 +1,9 @@
+{
+    "extends": "../tsconfig.json",
+    "include": ["."],
+    "compilerOptions": {
+        "target": "ESNext",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true
+    }
+}
