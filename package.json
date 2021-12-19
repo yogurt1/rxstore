@@ -15,12 +15,12 @@
     "build": "tsdx build --target node",
     "test": "tsdx test",
     "lint": "tsdx lint",
-    "prepare": "tsdx build --target node",
     "size": "size-limit",
     "analyze": "size-limit --why"
   },
   "peerDependencies": {
-    "reflect-metadata": "^0.1.13"
+    "reflect-metadata": "0.1.x",
+    "rxjs": ">= 6"
   },
   "husky": {
     "hooks": {
@@ -51,6 +51,7 @@
     "@types/warning": "^3.0.0",
     "husky": "^7.0.4",
     "reflect-metadata": "^0.1.13",
+    "rxjs": "^6.6.0",
     "size-limit": "^7.0.4",
     "tsdx": "^0.14.1",
     "tslib": "^2.3.1",
